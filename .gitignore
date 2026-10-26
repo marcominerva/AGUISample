@@ -418,3 +418,4 @@ FodyWeavers.xsd
 *.msp
 
 /AgentBasicService/appsettings.local.json
+/AGUIServer/appsettings.local.json
