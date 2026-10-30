@@ -40,8 +40,7 @@ public class WeatherService
     public async Task<CurrentWeather> GetCurrentWeatherAsync(string city, UnitSystem units = UnitSystem.Metric, string language = "en", CancellationToken cancellationToken = default)
     {
         var unitsParam = units.ToString().ToLowerInvariant();
-        var response = await httpClient.GetFromJsonAsync<CurrentWeather>($"weather?q={city}&appid={appId}&units={unitsParam}&lang={language}", cancellationToken)
-            .ConfigureAwait(false);
+        var response = await httpClient.GetFromJsonAsync<CurrentWeather>($"weather?q={city}&appid={appId}&units={unitsParam}&lang={language}", cancellationToken).ConfigureAwait(false);
 
         return response!;
     }
@@ -68,8 +67,7 @@ public class WeatherService
         var clampedDays = Math.Clamp(days, 1, 16);
         var unitsParam = units.ToString().ToLowerInvariant();
 
-        var response = await httpClient.GetFromJsonAsync<DailyForecastWeather>($"forecast/daily?q={city}&cnt={clampedDays}&appid={appId}&units={unitsParam}&lang={language}", cancellationToken)
-            .ConfigureAwait(false);
+        var response = await httpClient.GetFromJsonAsync<DailyForecastWeather>($"forecast/daily?q={city}&cnt={clampedDays}&appid={appId}&units={unitsParam}&lang={language}", cancellationToken).ConfigureAwait(false);
 
         return response!;
     }

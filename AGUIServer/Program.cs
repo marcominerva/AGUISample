@@ -70,8 +70,8 @@ builder.Services.AddAIAgent("Default", (services, key) =>
         {
             Instructions = "You are a helpful assistant that provides concise and accurate information.",
             Tools = [new HostedWebSearchTool(),
-            AIFunctionFactory.Create(services.GetRequiredService<WeatherService>().GetCurrentWeatherAsync,"get_current_weather"),
-            AIFunctionFactory.Create(services.GetRequiredService<WeatherService>().GetWeatherForecastAsync,"get_weather_forecast")
+                AIFunctionFactory.Create(services.GetRequiredService<WeatherService>().GetCurrentWeatherAsync, "get_current_weather"),
+                AIFunctionFactory.Create(services.GetRequiredService<WeatherService>().GetWeatherForecastAsync, "get_weather_forecast")
             ]
         },
         AIContextProviders = [new UserContextProvider()],
@@ -80,7 +80,7 @@ builder.Services.AddAIAgent("Default", (services, key) =>
     loggerFactory: services.GetRequiredService<ILoggerFactory>(),
     services: services);
 }, ServiceLifetime.Scoped)
-.WithSessionStore((services, key) =>
+.WithSessionStore((_, _) =>
 {
     var agentSessionStore = new InMemorySessionStore();
     return agentSessionStore;
@@ -144,7 +144,8 @@ app.MapPost("/api/chat/streaming", async (ChatRequest request, [FromKeyedService
 
 app.MapAGUIServer("/agent", context =>
 {
-    return context.RequestServices.GetRequiredKeyedService<AIAgent>("Default");
+    var agent = context.RequestServices.GetRequiredKeyedService<AIAgent>("Default");
+    return agent;
 }).ExcludeFromDescription();
 
 app.Run();

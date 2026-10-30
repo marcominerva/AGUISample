@@ -1,5 +1,4 @@
-﻿using AGUI.Abstractions;
-using AGUI.Client;
+﻿using AGUI.Client;
 using Microsoft.Agents.AI;
 using Microsoft.Extensions.AI;
 
@@ -11,12 +10,10 @@ using var httpClient = new HttpClient()
 var chatClient = new AGUIChatClient(new(httpClient, "/agent"));
 var agent = chatClient.AsAIAgent(name: "agui-client");
 
-var session = await agent.CreateSessionAsync();
-
 var threadId = Guid.NewGuid().ToString("N");
 var options = new ChatClientAgentRunOptions(new()
 {
-    RawRepresentationFactory = _ => new RunAgentInput { ThreadId = threadId }
+    ConversationId = threadId
 });
 
 while (true)
@@ -27,13 +24,11 @@ while (true)
     //var response = await agent.RunAsync(question, options: options);
     //Console.WriteLine(response);
 
-    var response = agent.RunStreamingAsync(question, options: options);
+    var response = agent.RunStreamingAsync(messages, options: options);
     await foreach (var message in response)
     {
         Console.Write(message);
     }
-
-    session.TryGetInMemoryChatHistory(out var chatHistory);
 
     Console.WriteLine();
     Console.WriteLine();
