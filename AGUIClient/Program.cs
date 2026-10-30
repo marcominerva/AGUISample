@@ -24,7 +24,7 @@ while (true)
     //var response = await agent.RunAsync(question, options: options);
     //Console.WriteLine(response);
 
-    var response = agent.RunStreamingAsync(messages, options: options);
+    var response = agent.RunStreamingAsync(question, options: options);
     await foreach (var message in response)
     {
         Console.Write(message);
