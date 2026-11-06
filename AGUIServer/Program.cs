@@ -3,11 +3,11 @@ using System.ClientModel.Primitives;
 using System.Net.ServerSentEvents;
 using System.Runtime.CompilerServices;
 using System.Text.Json.Serialization;
-using AgentBasicService.SessionStores;
-using AgentBasicService.Settings;
-using AgentBasicService.Tracing;
 using AGUIServer.ContextProviders;
 using AGUIServer.Services;
+using AGUIServer.SessionStores;
+using AGUIServer.Settings;
+using AGUIServer.Tracing;
 using Microsoft.Agents.AI;
 using Microsoft.Agents.AI.Hosting;
 using Microsoft.Agents.AI.Hosting.AGUI.AspNetCore;
@@ -30,7 +30,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
 
 builder.Services.AddHttpClient<WeatherService>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("OpenWeatherMap:BaseUrl")!);
+    client.BaseAddress = new(builder.Configuration.GetValue<string>("OpenWeatherMap:BaseUrl")!);
 });
 
 var openAISettings = builder.Services.ConfigureAndGet<AzureOpenAISettings>(builder.Configuration, "AzureOpenAI")!;

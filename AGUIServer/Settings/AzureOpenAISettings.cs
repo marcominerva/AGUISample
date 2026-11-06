@@ -1,4 +1,4 @@
-﻿namespace AgentBasicService.Settings;
+﻿namespace AGUIServer.Settings;
 
 public class AzureOpenAISettings
 {

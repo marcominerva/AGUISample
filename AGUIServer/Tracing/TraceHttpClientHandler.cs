@@ -1,7 +1,7 @@
 ﻿using System.Text.Encodings.Web;
 using System.Text.Json;
 
-namespace AgentBasicService.Tracing;
+namespace AGUIServer.Tracing;
 
 public class TraceHttpClientHandler : HttpClientHandler
 {

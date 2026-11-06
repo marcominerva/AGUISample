@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using System.Text.Json;
 using Microsoft.Agents.AI;
 
-namespace AgentBasicService.SessionStores;
+namespace AGUIServer.SessionStores;
 
 public sealed class InMemorySessionStore : AgentSessionStore
 {
